@@ -1,17 +1,29 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Electron boilerplate</title>
-		<link rel="stylesheet" href="index.css">
-	</head>
-	<body>
-		<div class="container">
-			<header>
-				<h1>Electron boilerplate</h1>
-			</header>
-			<section class="main"></section>
-			<footer></footer>
+
+<head>
+	<meta charset="utf-8">
+	<title>Crpyto Tracker</title>
+	<link rel="stylesheet" href="index.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+</head>
+
+<body>
+	<script type="text/javascript" src="js/scripts.js"></script>
+
+	<div class="header">
+		<h1>Crypto</h1>
+	</div>
+	<div class="container">
+		<div id="coin-container">
 		</div>
-	</body>
+		<div class="addCoinCard">
+			<h5>Enter Coin Code</h5>
+			<input id="coin-code-input"type="text" />
+			<button id="addCoin" type="button" name="addCoin" onclick="addNewCurrency(document.getElementById('coin-code-input').value)">Add Coin</button>
+		</div>
+	</div>
+</body>
+
 </html>
