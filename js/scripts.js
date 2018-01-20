@@ -11,7 +11,7 @@ function addNewCurrency(curr) {
 
   var displayCard = document.createElement('div')
   displayCard.className = 'coinCard';
-  displayCard.innerHTML = '<p>' + json_obj.ticker.base + ' £' + Math.round(json_obj.ticker.price * 100) / 10000 + '</p>'
+  displayCard.innerHTML = '<p>' + json_obj.ticker.base + ' £' + Math.round(json_obj.ticker.price * 100) / 100 + '</p>'
 
   if (json_obj.ticker.change < 0) {
     displayCard.setAttribute("style", "background-color: #F44336;")
