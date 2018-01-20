@@ -8,10 +8,18 @@ function addNewCurrency(curr) {
   Httpreq.send(null);
 
   var json_obj = JSON.parse(Httpreq.responseText);
+  var price = json_obj.ticker.price
+
+  if (price > 0.01) {
+    price = Math.round(json_obj.ticker.price * 100) / 100
+  }
+  else if(price < 0.01) {
+    price = json_obj.ticker.price
+  }
 
   var displayCard = document.createElement('div')
   displayCard.className = 'coinCard';
-  displayCard.innerHTML = '<p>' + json_obj.ticker.base + ' £' + Math.round(json_obj.ticker.price * 100) / 100 + '</p>'
+  displayCard.innerHTML = '<p>' + json_obj.ticker.base + ' £' + price + '</p>'
 
   if (json_obj.ticker.change < 0) {
     displayCard.setAttribute("style", "background-color: #F44336;")
