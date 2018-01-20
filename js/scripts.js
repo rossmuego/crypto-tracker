@@ -1,3 +1,4 @@
+const jetpack = require('fs-jetpack');
 const apiUrl = "https://api.cryptonator.com/api/ticker/"
 
 function addNewCurrency(curr) {
@@ -10,7 +11,7 @@ function addNewCurrency(curr) {
 
   var displayCard = document.createElement('div')
   displayCard.className = 'coinCard';
-  displayCard.innerHTML = '<p>' + json_obj.ticker.base + ' ' + json_obj.ticker.price + '</p>'
+  displayCard.innerHTML = '<p>' + json_obj.ticker.base + ' £' + Math.round(json_obj.ticker.price * 100) / 100 + '</p>'
 
   if (json_obj.ticker.change < 0) {
     displayCard.setAttribute("style", "background-color: #F44336;")
@@ -19,5 +20,21 @@ function addNewCurrency(curr) {
   }
 
   document.getElementById('coin-container').appendChild(displayCard);
+
+}
+
+
+function getCoins() {
+
+  const data = jetpack.read('db/coins.json', 'json');
+
+  for (var i = 0; i < data.length; i++) {
+    var obj = data[i];
+    for (var key in obj) {
+      var coinName = obj[key];
+      addNewCurrency(coinName)
+
+    }
+  }
 
 }
