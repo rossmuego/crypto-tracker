@@ -1,14 +1,14 @@
 {
-  "name": "app",
-  "productName": "App",
-  "version": "0.0.0",
-  "description": "",
+  "name": "Crypto-Tracker",
+  "productName": "Crypto Tracker",
+  "version": "0.0.1",
+  "description": "Track Cryptocurrency",
   "license": "MIT",
   "repository": "user/repo",
   "author": {
-    "name": "",
+    "name": "Ross Muego",
     "email": "",
-    "url": ""
+    "url": "rossmuego.com"
   },
   "scripts": {
     "test": "xo",
