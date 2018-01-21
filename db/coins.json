@@ -1,6 +1,8 @@
-[{
-  "name": "BTC"
-},
-{
-  "name": "LTC"
-}]
+[
+  {
+    "name": "btc"
+  },
+  {
+    "name": "DOGE"
+  }
+]
