@@ -1,10 +1,11 @@
 const jetpack = require('fs-jetpack');
 const apiUrl = "https://api.cryptonator.com/api/ticker/"
+var currency = 'usd';
 
 function addNewCurrency(curr) {
 
   var Httpreq = new XMLHttpRequest(); // a new request
-  Httpreq.open("GET", apiUrl + curr + "-gbp", false);
+  Httpreq.open("GET", apiUrl + curr + "-" + currency, false);
   Httpreq.send(null);
 
   var json_obj = JSON.parse(Httpreq.responseText);
@@ -23,9 +24,9 @@ function addNewCurrency(curr) {
   displayCard.innerHTML = '<p>' + json_obj.ticker.base + ' £' + price + '</p>'
 
   if (json_obj.ticker.change < 0) {
-    displayCard.setAttribute("style", "background-color: #F44336;")
+    displayCard.setAttribute("style", "background-color: #EF5350;")
   } else {
-    displayCard.setAttribute("style", "background-color: #4CAF50;")
+    displayCard.setAttribute("style", "background-color: #69F0AE;")
   }
 
   document.getElementById('coin-container').appendChild(displayCard);
@@ -43,9 +44,8 @@ function getCoins() {
   while (elm.hasChildNodes()) {
     elm.removeChild(elm.lastChild);
   }
-  const data = jetpack.read('db/coins.json', 'json');
 
-  console.log(data);
+  const data = jetpack.read('db/coins.json', 'json');
 
   for (var i = 0; i < data.length; i++) {
     var obj = data[i];
@@ -76,25 +76,10 @@ function saveCoin(newCoin) {
 }
 
 
-function coinPrice(curr) {
-  var Httpreq = new XMLHttpRequest(); // a new request
-  Httpreq.open("GET", apiUrl + curr + "-gbp", false);
-  Httpreq.send(null);
-
-  var json_obj = JSON.parse(Httpreq.responseText);
-  var price = json_obj.ticker.price
-
-  if (price > 0.01) {
-    return Math.round(json_obj.ticker.price * 100) / 100
-  } else {
-    return json_obj.ticker.price
-  }
-}
-
 function reloadCoins(curr) {
 
   var Httpreq = new XMLHttpRequest(); // a new request
-  Httpreq.open("GET", apiUrl + curr + "-gbp", false);
+  Httpreq.open("GET", apiUrl + curr + "-" + currency, false);
   Httpreq.send(null);
 
   var json_obj = JSON.parse(Httpreq.responseText);
@@ -113,9 +98,9 @@ function reloadCoins(curr) {
   displayCard.innerHTML = '<p>' + json_obj.ticker.base + ' £' + price + '</p>'
 
   if (json_obj.ticker.change < 0) {
-    displayCard.setAttribute("style", "background-color: #F44336;")
+    displayCard.setAttribute("style", "background-color: #EF5350;")
   } else {
-    displayCard.setAttribute("style", "background-color: #4CAF50;")
+    displayCard.setAttribute("style", "background-color: #69F0AE;")
   }
 
   document.getElementById('coin-container').appendChild(displayCard);
