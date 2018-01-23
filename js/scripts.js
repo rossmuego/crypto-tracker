@@ -48,7 +48,7 @@ function addNewCurrency(curr) {
     priceChange = coinObj.ticker.change
   }
 
-  displayCard.innerHTML = '<div class="coin-name">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + currencyCode + price + '</div><div class="price-change">' + priceChange + '</div></div>'
+  displayCard.innerHTML = '<div class="coin-name" onclick="expandCard(this.parentNode.id)">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + currencyCode + price + '</div><div class="price-change">' + priceChange + '</div></div>'
 
   if (coinObj.ticker.change < 0) {
     displayCard.setAttribute("style", "background-color: #EF5350;")
