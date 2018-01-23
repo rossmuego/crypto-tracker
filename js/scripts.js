@@ -10,10 +10,12 @@ function updateCurrency() {
   var e = document.getElementById("currencyPicker");
   currency = e.options[e.selectedIndex].value;
 
-  if(currency == 'gbp'){
+  if (currency == 'gbp') {
     currencyCode = '£'
   } else if (currency == 'usd') {
     currencyCode = '$'
+  } else if (currency == 'eur') {
+    currencyCode = '€'
   }
 
   getCoins();
@@ -25,22 +27,30 @@ function addNewCurrency(curr) {
   Httpreq.open("GET", apiUrl + curr + "-" + currency, false);
   Httpreq.send(null);
 
-  var json_obj = JSON.parse(Httpreq.responseText);
-  var price = json_obj.ticker.price
+  var coinObj = JSON.parse(Httpreq.responseText);
+  var price = coinObj.ticker.price
 
   if (price > 0.01) {
-    price = Math.round(json_obj.ticker.price * 100) / 100
+    price = Math.round(coinObj.ticker.price * 100) / 100
   } else if (price < 0.01) {
-    price = json_obj.ticker.price
+    price = coinObj.ticker.price
   }
 
   var displayCard = document.createElement('div')
   displayCard.className = 'coinCard';
-  displayCard.id = json_obj.ticker.base;
+  displayCard.id = coinObj.ticker.base;
 
-  displayCard.innerHTML = '<div class="coin-name">' + json_obj.ticker.base + '</div> <div class = "coin-price" >' + currencyCode + price + '</div>'
+  var priceChange = ""
 
-  if (json_obj.ticker.change < 0) {
+  if (coinObj.ticker.change > 0) {
+    priceChange = "+" + coinObj.ticker.change
+  } else {
+    priceChange = coinObj.ticker.change
+  }
+
+  displayCard.innerHTML = '<div class="coin-name">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + price + '</div><div class="price-change">' + priceChange + '</div></div>'
+
+  if (coinObj.ticker.change < 0) {
     displayCard.setAttribute("style", "background-color: #EF5350;")
   } else {
     displayCard.setAttribute("style", "background-color: #69F0AE;")
@@ -49,7 +59,7 @@ function addNewCurrency(curr) {
   document.getElementById('coin-container').appendChild(displayCard);
 
   saveCoin({
-    "name": json_obj.ticker.base
+    "name": coinObj.ticker.base
   })
 
 }
@@ -99,23 +109,31 @@ function reloadCoins(curr) {
   Httpreq.open("GET", apiUrl + curr + "-" + currency, false);
   Httpreq.send(null);
 
-  var json_obj = JSON.parse(Httpreq.responseText);
-  var price = json_obj.ticker.price
+  var coinObj = JSON.parse(Httpreq.responseText);
+  var price = coinObj.ticker.price
 
 
   if (price > 0.01) {
-    price = Math.round(json_obj.ticker.price * 100) / 100
+    price = Math.round(coinObj.ticker.price * 100) / 100
   } else if (price < 0.01) {
-    price = Math.round(json_obj.ticker.price * 10000) / 10000
+    price = Math.round(coinObj.ticker.price * 10000) / 10000
+  }
+
+  var priceChange = ""
+
+  if (coinObj.ticker.change > 0) {
+    priceChange = "+" + coinObj.ticker.change
+  } else {
+    priceChange = coinObj.ticker.change
   }
 
   var displayCard = document.createElement('div')
   displayCard.className = 'coinCard';
-  displayCard.id = json_obj.ticker.base;
+  displayCard.id = coinObj.ticker.base;
 
-  displayCard.innerHTML = '<div class="coin-name">' + json_obj.ticker.base + '</div> <div class = "coin-price" >' + currencyCode + price + '</div>'
+  displayCard.innerHTML = '<div class="coin-name">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + price + '</div><div class="price-change">' + priceChange + '</div></div>'
 
-  if (json_obj.ticker.change < 0) {
+  if (coinObj.ticker.change < 0) {
     displayCard.setAttribute("style", "background-color: #EF5350;")
   } else {
     displayCard.setAttribute("style", "background-color: #69F0AE;")

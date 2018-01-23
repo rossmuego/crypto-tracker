@@ -50,8 +50,17 @@ body {
 
 .coin-price {
   float: right;
-  font-size: 30px;
-  padding-right: 2px;
   position: relative;
-  line-height: 100px;
+  padding-right: 2px;
+  padding-top: 25px;
+}
+
+.current-price {
+  font-size: 30px;
+  text-align: right;
+}
+
+.price-change {
+  font-size: 15px;
+  text-align: right;
 }

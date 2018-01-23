@@ -3,12 +3,12 @@
     "name": "btc"
   },
   {
-    "name": "DOGE"
-  },
-  {
     "name": "LTC"
   },
   {
     "name": "ETH"
+  },
+  {
+    "name": "XRP"
   }
 ]
