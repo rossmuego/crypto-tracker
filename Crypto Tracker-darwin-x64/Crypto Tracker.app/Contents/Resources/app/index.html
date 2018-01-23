@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Crpyto Tracker</title>
+	<link rel="stylesheet" href="index.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script type="text/javascript" src="js/scripts.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+
+<body onload="getCoins()">
+	<div class="header">
+		<h1>Crypto Tracker</h1>
+		<select id="currencyPicker" onchange="updateCurrency()">
+  		<option value="gbp">GBP</option>
+  		<option value="usd">USD</option>
+			<option value="eur">EURO</option>
+		</select>
+	</div>
+	<div class="container">
+		<div id="coin-container">
+		</div>
+		<div class="addCoinCard">
+			<p>Enter Coin Code</p>
+			<input id="coin-code-input" type="text" />
+			<button id="addCoin" type="button" name="addCoin" onclick="addNewCurrency(document.getElementById('coin-code-input').value)">Add Coin</button>
+		</div>
+	</div>
+</body>
+
+
+
+
+
+</html>

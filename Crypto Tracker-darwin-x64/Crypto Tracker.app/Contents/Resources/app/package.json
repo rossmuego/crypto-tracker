@@ -1,0 +1,42 @@
+{
+  "name": "Crypto-Tracker",
+  "productName": "Crypto Tracker",
+  "version": "1.0.0",
+  "description": "Track Cryptocurrency",
+  "license": "MIT",
+  "repository": "user/repo",
+  "author": {
+    "name": "Ross Muego",
+    "email": "rossmuego@gmail.com",
+    "url": "rossmuego.com"
+  },
+  "scripts": {
+    "test": "xo",
+    "start": "electron .",
+    "build": "electron-packager . --out=dist --asar --overwrite --all"
+  },
+  "dependencies": {
+    "electron-debug": "^1.0.0",
+    "electron-updater": "^2.20.1",
+    "fs-jetpack": "^1.2.0",
+    "node-notifier": "^5.2.1"
+  },
+  "devDependencies": {
+    "devtron": "^1.1.0",
+    "electron-packager": "^8.0.0",
+    "electron": "^1.7.11",
+    "xo": "^0.18.0"
+  },
+  "xo": {
+    "envs": [
+      "node",
+      "browser"
+    ]
+  },
+  "build": {
+    "appId": "com.electron.${name}",
+    "mac": {
+      "category": "your.app.category.type"
+    }
+  }
+}

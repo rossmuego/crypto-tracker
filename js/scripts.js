@@ -75,7 +75,7 @@ function getCoins() {
     elm.removeChild(elm.lastChild);
   }
 
-  const data = jetpack.read('db/coins.json', 'json');
+  const data = jetpack.read(`file://${__dirname}/db/coins.json`, 'json');
 
   for (var i = 0; i < data.length; i++) {
     var obj = data[i];
