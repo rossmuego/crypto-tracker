@@ -2,6 +2,7 @@ const jetpack = require('fs-jetpack');
 const apiUrl = "https://api.cryptonator.com/api/ticker/"
 var currency = 'gbp';
 var currencyCode = '£'
+const notifier = require('node-notifier');
 
 // setInterval(getCoins, 5000);
 

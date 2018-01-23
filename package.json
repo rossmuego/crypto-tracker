@@ -17,7 +17,8 @@
   },
   "dependencies": {
     "electron-debug": "^1.0.0",
-    "fs-jetpack": "^1.2.0"
+    "fs-jetpack": "^1.2.0",
+    "node-notifier": "^5.2.1"
   },
   "devDependencies": {
     "devtron": "^1.1.0",
