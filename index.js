@@ -18,7 +18,7 @@ function onClosed() {
 function createMainWindow() {
 	const win = new electron.BrowserWindow({
 		width: 400,
-		height: 620,
+		height: 622,
 		resizable: false,
 		title: "Crypto Tracker"
 	});

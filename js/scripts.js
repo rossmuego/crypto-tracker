@@ -1,8 +1,23 @@
 const jetpack = require('fs-jetpack');
 const apiUrl = "https://api.cryptonator.com/api/ticker/"
 var currency = 'gbp';
+var currencyCode = '£'
 
-setInterval(getCoins, 5000);
+// setInterval(getCoins, 5000);
+
+
+function updateCurrency() {
+  var e = document.getElementById("currencyPicker");
+  currency = e.options[e.selectedIndex].value;
+
+  if(currency == 'gbp'){
+    currencyCode = '£'
+  } else if (currency == 'usd') {
+    currencyCode = '$'
+  }
+
+  getCoins();
+}
 
 function addNewCurrency(curr) {
 
@@ -23,7 +38,7 @@ function addNewCurrency(curr) {
   displayCard.className = 'coinCard';
   displayCard.id = json_obj.ticker.base;
 
-  displayCard.innerHTML = '<p>' + json_obj.ticker.base + ' £' + price + '</p>'
+  displayCard.innerHTML = '<div class="coin-name">' + json_obj.ticker.base + '</div> <div class = "coin-price" >' + currencyCode + price + '</div>'
 
   if (json_obj.ticker.change < 0) {
     displayCard.setAttribute("style", "background-color: #EF5350;")
@@ -91,14 +106,14 @@ function reloadCoins(curr) {
   if (price > 0.01) {
     price = Math.round(json_obj.ticker.price * 100) / 100
   } else if (price < 0.01) {
-    price = json_obj.ticker.price
+    price = Math.round(json_obj.ticker.price * 10000) / 10000
   }
 
   var displayCard = document.createElement('div')
   displayCard.className = 'coinCard';
   displayCard.id = json_obj.ticker.base;
 
-  displayCard.innerHTML = '<p>' + json_obj.ticker.base + ' £' + price + '</p>'
+  displayCard.innerHTML = '<div class="coin-name">' + json_obj.ticker.base + '</div> <div class = "coin-price" >' + currencyCode + price + '</div>'
 
   if (json_obj.ticker.change < 0) {
     displayCard.setAttribute("style", "background-color: #EF5350;")

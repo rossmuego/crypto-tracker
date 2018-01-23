@@ -39,3 +39,19 @@ body {
   position: static;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
+
+.coin-name {
+  float: left;
+  font-size: 30px;
+  padding-left: 2px;
+  position: relative;
+  line-height: 100px;
+}
+
+.coin-price {
+  float: right;
+  font-size: 30px;
+  padding-right: 2px;
+  position: relative;
+  line-height: 100px;
+}
