@@ -62,6 +62,8 @@ function addNewCurrency(curr) {
     "name": coinObj.ticker.base
   })
 
+  document.getElementById('coin-code-input').value = "";
+
 }
 
 
@@ -121,7 +123,7 @@ function reloadCoins(curr) {
 
   var priceChange = ""
 
-  if (coinObj.ticker.change > 0) {
+  if (coinObj.ticker.change >= 0) {
     priceChange = "+" + coinObj.ticker.change
   } else {
     priceChange = coinObj.ticker.change
@@ -131,7 +133,7 @@ function reloadCoins(curr) {
   displayCard.className = 'coinCard';
   displayCard.id = coinObj.ticker.base;
 
-  displayCard.innerHTML = '<div class="coin-name" onclick="removeCoin(this.parentNode.id)">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + currencyCode + price + '</div><div class="price-change">' + priceChange + '</div></div>'
+  displayCard.innerHTML = '<div class="coin-name" onclick="expandCard(this.parentNode.id)">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + currencyCode + price + '</div><div class="price-change">' + priceChange + '</div></div>'
 
   if (coinObj.ticker.change < 0) {
     displayCard.setAttribute("style", "background-color: #EF5350;")
@@ -150,10 +152,17 @@ function expandCard(clicked_id) {
 
   if (divheight == 200) {
     document.getElementById(clicked_id).style.height = "100px";
+    var remove = document.getElementById(clicked_id+"-extension")
+    document.getElementById(clicked_id).removeChild(remove)
   } else if (divheight == 100) {
     document.getElementById(clicked_id).style.height = "200px";
-  }
 
+    var extension = document.createElement('div')
+    extension.className = 'extended-card';
+    extension.id = clicked_id + "-extension"
+    extension.innerHTML = '<button onclick="(removeCoin(this.parentNode.parentNode.id))">Delete</button>'
+    document.getElementById(clicked_id).appendChild(extension)
+  }
 }
 
 
@@ -162,7 +171,6 @@ function removeCoin(clicked_id) {
   var newData = []
 
   const data = jetpack.read('db/coins.json', 'json');
-  jetpack.remove('db/coins.json')
 
   for (var i = 0; i < data.length; i++) {
     var obj = data[i];
