@@ -75,3 +75,10 @@ body {
   font-size: 15px;
   text-align: right;
 }
+
+.coin-extended{
+  margin-top: 100px;
+  position: relative;
+  line-height: 100px;
+  text-align: center;
+}
