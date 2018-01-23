@@ -131,7 +131,7 @@ function reloadCoins(curr) {
   displayCard.className = 'coinCard';
   displayCard.id = coinObj.ticker.base;
 
-  displayCard.innerHTML = '<div class="coin-name">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + currencyCode + price + '</div><div class="price-change">' + priceChange + '</div></div>'
+  displayCard.innerHTML = '<div class="coin-name" onclick="expandCard(this.parentNode.id)">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + currencyCode + price + '</div><div class="price-change">' + priceChange + '</div></div>'
 
   if (coinObj.ticker.change < 0) {
     displayCard.setAttribute("style", "background-color: #EF5350;")
@@ -140,4 +140,18 @@ function reloadCoins(curr) {
   }
 
   document.getElementById('coin-container').appendChild(displayCard);
+}
+
+
+
+function expandCard(clicked_id) {
+
+  var divheight = document.getElementById(clicked_id).clientHeight
+
+  if (divheight == 200) {
+    document.getElementById(clicked_id).style.height = "100px";
+  } else if (divheight == 100) {
+    document.getElementById(clicked_id).style.height = "200px";
+  }
+
 }
