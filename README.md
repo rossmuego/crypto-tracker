@@ -12,3 +12,8 @@ Crypto Tracker is a recently undertaken project my myself to provide a colourful
 
 
 ![Image](https://i.imgur.com/KQdiddd.png)
+
+## Future Releases
+
+* Graph coin prices over last 24 hours
+* Improved GUI
