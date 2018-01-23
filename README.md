@@ -11,4 +11,4 @@ Crypto Tracker is a recently undertaken project my myself to provide a colourful
 * Quickly at a glance see if the price has increased or decreased within the last hour.
 
 
-![AppPicture]({{ "https://imgur.com/a/sdhWS"}})
+![Image](https://i.imgur.com/KQdiddd.png)
