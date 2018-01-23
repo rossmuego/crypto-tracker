@@ -1,6 +1,8 @@
 const jetpack = require('fs-jetpack');
 const apiUrl = "https://api.cryptonator.com/api/ticker/"
-var currency = 'usd';
+var currency = 'gbp';
+
+setInterval(getCoins, 5000);
 
 function addNewCurrency(curr) {
 
@@ -84,6 +86,7 @@ function reloadCoins(curr) {
 
   var json_obj = JSON.parse(Httpreq.responseText);
   var price = json_obj.ticker.price
+
 
   if (price > 0.01) {
     price = Math.round(json_obj.ticker.price * 100) / 100
