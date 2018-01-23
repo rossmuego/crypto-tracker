@@ -55,6 +55,10 @@ body {
   line-height: 100px;
 }
 
+.coin-name:hover {
+  cursor: pointer;
+}
+
 .coin-price {
   float: right;
   position: relative;

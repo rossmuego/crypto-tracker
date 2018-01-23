@@ -131,7 +131,7 @@ function reloadCoins(curr) {
   displayCard.className = 'coinCard';
   displayCard.id = coinObj.ticker.base;
 
-  displayCard.innerHTML = '<div class="coin-name" onclick="expandCard(this.parentNode.id)">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + currencyCode + price + '</div><div class="price-change">' + priceChange + '</div></div>'
+  displayCard.innerHTML = '<div class="coin-name" onclick="removeCoin(this.parentNode.id)">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + currencyCode + price + '</div><div class="price-change">' + priceChange + '</div></div>'
 
   if (coinObj.ticker.change < 0) {
     displayCard.setAttribute("style", "background-color: #EF5350;")
@@ -154,4 +154,26 @@ function expandCard(clicked_id) {
     document.getElementById(clicked_id).style.height = "200px";
   }
 
+}
+
+
+function removeCoin(clicked_id) {
+
+  var newData = []
+
+  const data = jetpack.read('db/coins.json', 'json');
+  jetpack.remove('db/coins.json')
+
+  for (var i = 0; i < data.length; i++) {
+    var obj = data[i];
+    for (var key in obj) {
+      var coinName = obj[key];
+      if (coinName != clicked_id) {
+        newData.push(obj);
+      }
+    }
+  }
+
+  document.getElementById(clicked_id).remove()
+  jetpack.write('db/coins.json', newData);
 }
