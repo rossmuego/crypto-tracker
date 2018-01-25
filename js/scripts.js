@@ -50,7 +50,7 @@ function addNewCurrency(curr) {
   if (price > 0.01) {
     price = Math.round(coinObj.ticker.price * 100) / 100
   } else if (price < 0.01) {
-    price = coinObj.ticker.price
+    price = Math.round(coinObj.ticker.price * 10000) / 10000
   }
 
   var displayCard = document.createElement('div')
@@ -174,7 +174,7 @@ function expandCard(clicked_id) {
     var displayCard = document.createElement('div')
     displayCard.id = clicked_id + "-extended"
     displayCard.className = 'coin-extended';
-    displayCard.innerHTML = '<button onclick="removeCoin(this.parentNode.parentNode.id)">Remove</button><input id="alertValue" type="text" /><select id="setAlertPicker"><option value="Increase">Increase</option> <option value ="Decrease" >Decrease</option></select><button onclick="setAlert(this.parentNode.parentNode.id)">Set Alert</button>'
+    displayCard.innerHTML = '<button onclick="removeCoin(this.parentNode.parentNode.id)">Remove</button><input id="alertValue" type="text" /><select id="setAlertPicker"><option value="Increase">Increase</option> <option value ="Decrease" >Decrease</option></select><button onclick="setAlert(this.parentNode.parentNode.id)">Set Alert</button><button onclick="removeAlert(this.parentNode.parentNode.id)">Delete</button>'
     document.getElementById(clicked_id).appendChild(displayCard);
 
     document.getElementById(clicked_id).style.height = "200px";
@@ -259,5 +259,23 @@ function setAlert(clicked_id) {
   data.push(newAlert)
 
   jetpack.write('db/alerts.json', data);
+
+}
+
+function removeAlert(clicked_id) {
+
+  var newData = []
+
+  const data = jetpack.read('db/alerts.json', 'json');
+
+  for (var i = 0; i < data.length; i++) {
+    var obj = data[i];
+
+    var coinName = obj.name;
+    if (coinName != clicked_id) {
+      newData.push(obj);
+    }
+  }
+  jetpack.write('db/alerts.json', newData);
 
 }
