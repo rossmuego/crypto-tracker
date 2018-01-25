@@ -69,14 +69,14 @@ function addNewCurrency(curr) {
 
 
 function getCoins() {
-
+  console.log(jetpack.cwd());
   var elm = document.getElementById('coin-container');
   while (elm.hasChildNodes()) {
     elm.removeChild(elm.lastChild);
   }
 
-  const data = jetpack.read(`file://${__dirname}/db/coins.json`, 'json');
-
+  const data = jetpack.read('db/coins.json', 'json');
+  console.log(document.location.pathname);
   for (var i = 0; i < data.length; i++) {
     var obj = data[i];
     for (var key in obj) {
@@ -155,7 +155,7 @@ function expandCard(clicked_id) {
 
   if (divheight == 200) {
     document.getElementById(clicked_id).style.height = "100px";
-    document.getElementById(clicked_id+"-extended").remove()
+    document.getElementById(clicked_id + "-extended").remove()
   } else if (divheight == 100) {
     var displayCard = document.createElement('div')
     displayCard.id = clicked_id + "-extended"
