@@ -1,8 +1,8 @@
 [
   {
     "name": "BTC",
-    "type": "15",
+    "type": "Increase",
     "value": 500,
-    "lastAlert": 1516903156060
+    "lastAlert": 1516911519763
   }
 ]

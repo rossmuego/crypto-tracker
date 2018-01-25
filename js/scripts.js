@@ -24,7 +24,7 @@ function updateCurrency() {
 }
 
 function updateTime() {
-  var e = document.getElementById("setAlertPicker")
+  var e = document.getElementById("setAlertTime")
   timeframe = e.options[e.selectedIndex].value
 
   if (timeframe == '15') {
@@ -40,6 +40,7 @@ function updateTime() {
 
 function addNewCurrency(curr) {
 
+
   var Httpreq = new XMLHttpRequest(); // a new request
   Httpreq.open("GET", apiUrl + curr + "-" + currency, false);
   Httpreq.send(null);
@@ -50,7 +51,7 @@ function addNewCurrency(curr) {
   if (price > 0.01) {
     price = Math.round(coinObj.ticker.price * 100) / 100
   } else if (price < 0.01) {
-    price = Math.round(coinObj.ticker.price * 10000) / 10000
+    price = coinObj.ticker.price
   }
 
   var displayCard = document.createElement('div')
@@ -85,6 +86,8 @@ function addNewCurrency(curr) {
 
 
 function getCoins() {
+
+  console.log(__dirname)
   var elm = document.getElementById('coin-container');
   while (elm.hasChildNodes()) {
     elm.removeChild(elm.lastChild);
@@ -213,6 +216,7 @@ function pushNotification(direction, coin, change) {
 
     if (current.name == coin) {
       if ((currentTime.getTime() - current.lastAlert) > alertTime) {
+        current.lastAlert = new Date().getTime()
         if (current.type == "Increase") {
           if (change > current.value) {
             notifier.notify({
