@@ -31,6 +31,8 @@ function updateTime() {
     alertTime = 1800000
   } else if (timeframe == '30') {
     alertTime = 3600000
+  } else if (timeframe == '45') {
+    alertTime = 5400000
   } else if (timeframe == '60') {
     alertTime = 7200000
   }
