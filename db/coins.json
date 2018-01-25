@@ -1,8 +1,5 @@
 [
   {
-    "name": "LTC"
-  },
-  {
     "name": "ETH"
   },
   {
@@ -10,6 +7,21 @@
   },
   {
     "name": "BTC"
+  },
+  {
+    "name": "LTC",
+    "type": "Decrease",
+    "value": 1
+  },
+  {
+    "name": "LTC",
+    "type": "Decrease",
+    "value": 1
+  },
+  {
+    "name": "LTC",
+    "type": "Decrease",
+    "value": 1
   },
   {
     "name": "LTC",

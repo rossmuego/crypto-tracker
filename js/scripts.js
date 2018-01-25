@@ -3,6 +3,7 @@ const apiUrl = "https://api.cryptonator.com/api/ticker/"
 var currency = 'gbp';
 var currencyCode = '£'
 const notifier = require('node-notifier');
+var alertTime = 1800000;
 
 setInterval(getCoins, 60000);
 
@@ -20,6 +21,22 @@ function updateCurrency() {
   }
 
   getCoins();
+}
+
+function updateTime() {
+  var e = document.getElementById("setAlertPicker")
+  timeframe = e.options[e.selectedIndex].value
+
+  if (timeframe == '15') {
+    alertTime = 1800000
+    console.log(alertTime)
+  } else if (timeframe == '30') {
+    alertTime = 3600000
+    console.log(alertTime)
+  } else if (timeframe == '60') {
+    alertTime = 7200000
+    console.log(alertTime)
+  }
 }
 
 function addNewCurrency(curr) {
@@ -192,32 +209,35 @@ function removeCoin(clicked_id) {
 function pushNotification(direction, coin, change) {
 
   const data = jetpack.read('db/alerts.json', 'json');
+  var currentTime = new Date()
 
   for (var i = 0; i < data.length; i++) {
     var current = data[i];
 
     if (current.name == coin) {
-      if (current.type == "Increase") {
-        if (change > current.value) {
-          notifier.notify({
-              title: 'Price Increase!',
-              message: coin + " has increaded in price by " + change + " in the last hour!",
-            },
-            function(err, response) {
-              // Response is response from notification
-            }
-          );
-        }
-      } else if (current.type == "Decrease") {
-        if ((change * -1) > current.value) {
-          notifier.notify({
-              title: 'Price Decrease!',
-              message: coin + " has decreased in price by " + (change * -1) + " in the last hour!",
-            },
-            function(err, response) {
-              // Response is response from notification
-            }
-          );
+      if ((currentTime.getTime() - current.lastAlert) > alertTime) {
+        if (current.type == "Increase") {
+          if (change > current.value) {
+            notifier.notify({
+                title: 'Price Increase!',
+                message: coin + " has increaded in price by " + change + " in the last hour!",
+              },
+              function(err, response) {
+                // Response is response from notification
+              }
+            );
+          }
+        } else if (current.type == "Decrease") {
+          if ((change * -1) > current.value) {
+            notifier.notify({
+                title: 'Price Decrease!',
+                message: coin + " has decreased in price by " + (change * -1) + " in the last hour!",
+              },
+              function(err, response) {
+                // Response is response from notification
+              }
+            );
+          }
         }
       }
     }
@@ -229,11 +249,13 @@ function setAlert(clicked_id) {
   var namecoin = document.getElementById(clicked_id).id;
   var amount = document.getElementById('alertValue').value;
   var direction = document.getElementById('setAlertPicker').value;
+  var time = new Date()
 
   var newAlert = {
     name: namecoin,
     type: direction,
-    value: parseInt(amount)
+    value: parseInt(amount),
+    lastAlert: time.getTime()
   }
 
   const data = jetpack.read('db/alerts.json', 'json')
