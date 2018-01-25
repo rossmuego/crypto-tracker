@@ -50,7 +50,7 @@ body {
 .coin-name {
   float: left;
   font-size: 30px;
-  padding-left: 2px;
+  padding-left: 5px;
   position: relative;
   line-height: 100px;
 }
@@ -62,7 +62,7 @@ body {
 .coin-price {
   float: right;
   position: relative;
-  padding-right: 2px;
+  padding-right: 5px;
   padding-top: 25px;
 }
 
@@ -76,9 +76,19 @@ body {
   text-align: right;
 }
 
-.coin-extended{
+.coin-extended {
   margin-top: 100px;
   position: relative;
   line-height: 100px;
   text-align: center;
+}
+
+.currency-picker {
+  float: left;
+  margin-left: 5px;
+}
+
+.notification-picker {
+  float: right;
+  margin-right: 5px;
 }

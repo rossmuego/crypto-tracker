@@ -29,13 +29,10 @@ function updateTime() {
 
   if (timeframe == '15') {
     alertTime = 1800000
-    console.log(alertTime)
   } else if (timeframe == '30') {
     alertTime = 3600000
-    console.log(alertTime)
   } else if (timeframe == '60') {
     alertTime = 7200000
-    console.log(alertTime)
   }
 }
 
@@ -86,14 +83,12 @@ function addNewCurrency(curr) {
 
 
 function getCoins() {
-  console.log(jetpack.cwd());
   var elm = document.getElementById('coin-container');
   while (elm.hasChildNodes()) {
     elm.removeChild(elm.lastChild);
   }
 
   const data = jetpack.read('db/coins.json', 'json');
-  console.log(document.location.pathname);
   for (var i = 0; i < data.length; i++) {
     var obj = data[i];
     for (var key in obj) {
