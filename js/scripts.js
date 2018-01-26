@@ -1,11 +1,11 @@
 const jetpack = require('fs-jetpack');
 const apiUrl = "https://api.cryptonator.com/api/ticker/"
-var currency = 'usd';
+var currency = 'gbp';
 var currencyCode = '£'
 const notifier = require('node-notifier');
 var alertTime = 1800000;
 
-setInterval(getCoins, 300000);
+setInterval(getCoins, 10000);
 
 function roundPrice(price) {
   if (price > 0.01) {
