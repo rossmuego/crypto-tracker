@@ -1,12 +1,19 @@
 const jetpack = require('fs-jetpack');
 const apiUrl = "https://api.cryptonator.com/api/ticker/"
-var currency = 'gbp';
+var currency = 'usd';
 var currencyCode = '£'
 const notifier = require('node-notifier');
 var alertTime = 1800000;
 
-setInterval(getCoins, 60000);
+setInterval(getCoins, 300000);
 
+function roundPrice(price) {
+  if (price > 0.01) {
+    return Math.round(price * 100) / 100
+  } else if (price < 0.01) {
+    return Math.round(price * 10000) / 10000
+  }
+}
 
 function updateCurrency() {
   var e = document.getElementById("currencyPicker");
@@ -41,18 +48,15 @@ function updateTime() {
 function addNewCurrency(curr) {
 
 
+
   var Httpreq = new XMLHttpRequest(); // a new request
   Httpreq.open("GET", apiUrl + curr + "-" + currency, false);
   Httpreq.send(null);
 
-  var coinObj = JSON.parse(Httpreq.responseText);
-  var price = coinObj.ticker.price
 
-  if (price > 0.01) {
-    price = Math.round(coinObj.ticker.price * 100) / 100
-  } else if (price < 0.01) {
-    price = coinObj.ticker.price
-  }
+  var coinObj = JSON.parse(Httpreq.responseText);
+
+  var price = roundPrice(coinObj.ticker.price)
 
   var displayCard = document.createElement('div')
   displayCard.className = 'coinCard';
@@ -66,7 +70,7 @@ function addNewCurrency(curr) {
     priceChange = coinObj.ticker.change
   }
 
-  displayCard.innerHTML = '<div class="coin-name" onclick="expandCard(this.parentNode.id)">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + currencyCode + price + '</div><div class="price-change">' + priceChange + '</div></div>'
+  displayCard.innerHTML = '<div class="coin-name" onclick="expandCard(this.parentNode.id)">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + currencyCode + price + '</div><div class="price-change">' + roundPrice(priceChange) + ' (' + roundPrice((priceChange / price) * 100) + '%)</div></div>'
 
   if (coinObj.ticker.change < 0) {
     displayCard.setAttribute("style", "background-color: #EF5350;")
@@ -84,10 +88,8 @@ function addNewCurrency(curr) {
 
 }
 
-
 function getCoins() {
 
-  console.log(__dirname)
   var elm = document.getElementById('coin-container');
   while (elm.hasChildNodes()) {
     elm.removeChild(elm.lastChild);
@@ -122,22 +124,18 @@ function saveCoin(newCoin) {
 
 }
 
-
 function reloadCoins(curr) {
+
 
   var Httpreq = new XMLHttpRequest(); // a new request
   Httpreq.open("GET", apiUrl + curr + "-" + currency, false);
   Httpreq.send(null);
 
+
+
   var coinObj = JSON.parse(Httpreq.responseText);
-  var price = coinObj.ticker.price
 
-
-  if (price > 0.01) {
-    price = Math.round(coinObj.ticker.price * 100) / 100
-  } else if (price < 0.01) {
-    price = Math.round(coinObj.ticker.price * 10000) / 10000
-  }
+  var price = roundPrice(coinObj.ticker.price)
 
   var priceChange = ""
 
@@ -153,7 +151,7 @@ function reloadCoins(curr) {
   displayCard.className = 'coinCard';
   displayCard.id = coinObj.ticker.base;
 
-  displayCard.innerHTML = '<div class="coin-name" onclick="expandCard(this.parentNode.id)">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + currencyCode + price + '</div><div class="price-change">' + priceChange + '</div></div>'
+  displayCard.innerHTML = '<div class="coin-name" onclick="expandCard(this.parentNode.id)">' + coinObj.ticker.base + '</div><div class="coin-price"><div class="current-price">' + currencyCode + price + '</div><div class="price-change">' + roundPrice(priceChange) + ' (' + roundPrice((priceChange / price) * 100) + '%)</div></div>'
 
   if (coinObj.ticker.change < 0) {
     displayCard.setAttribute("style", "background-color: #EF5350;")
@@ -163,8 +161,6 @@ function reloadCoins(curr) {
 
   document.getElementById('coin-container').appendChild(displayCard);
 }
-
-
 
 function expandCard(clicked_id) {
 
@@ -184,7 +180,6 @@ function expandCard(clicked_id) {
   }
 
 }
-
 
 function removeCoin(clicked_id) {
 
@@ -221,7 +216,7 @@ function pushNotification(direction, coin, change) {
           if (change > current.value) {
             notifier.notify({
                 title: 'Price Increase!',
-                message: coin + " has increaded in price by " + change + " in the last hour!",
+                message: coin + " has increaded in price by " + currencyCode + roundPrice(change) + " in the last hour!",
               },
               function(err, response) {
                 // Response is response from notification
@@ -232,7 +227,7 @@ function pushNotification(direction, coin, change) {
           if ((change * -1) > current.value) {
             notifier.notify({
                 title: 'Price Decrease!',
-                message: coin + " has decreased in price by " + (change * -1) + " in the last hour!",
+                message: coin + " has decreased in price by " + currencyCode + roundPrice(change * -1) + " in the last hour!",
               },
               function(err, response) {
                 // Response is response from notification
