@@ -1,5 +1,5 @@
 {
-  "name": "Crypto-Tracker",
+  "name": "Cracker",
   "productName": "Crypto Tracker",
   "version": "1.0.0",
   "description": "Track Cryptocurrency",
@@ -23,8 +23,9 @@
   },
   "devDependencies": {
     "devtron": "^1.1.0",
+    "electron": "latest",
+    "electron-builder": "^19.55.2",
     "electron-packager": "^8.0.0",
-    "electron": "^1.7.11",
     "xo": "^0.18.0"
   },
   "xo": {
