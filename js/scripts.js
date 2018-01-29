@@ -47,8 +47,6 @@ function updateTime() {
 
 function addNewCurrency(curr) {
 
-
-
   var Httpreq = new XMLHttpRequest(); // a new request
   Httpreq.open("GET", apiUrl + curr + "-" + currency, false);
   Httpreq.send(null);
@@ -90,12 +88,13 @@ function addNewCurrency(curr) {
 
 function getCoins() {
 
+  console.log(__dirname+'/db/coins.json')
   var elm = document.getElementById('coin-container');
   while (elm.hasChildNodes()) {
     elm.removeChild(elm.lastChild);
   }
 
-  const data = jetpack.read('db/coins.json', 'json');
+  const data = jetpack.read(__dirname+'/db/coins.json', 'json');
   for (var i = 0; i < data.length; i++) {
     var obj = data[i];
     for (var key in obj) {
@@ -107,9 +106,9 @@ function getCoins() {
 
 function saveCoin(newCoin) {
 
-  const data = jetpack.read('db/coins.json', 'json');
+  const data = jetpack.read(__dirname+'/db/coins.json', 'json');
   var newData = []
-  jetpack.remove('db/coins.json')
+  jetpack.remove(__dirname+'/db/coins.json')
 
   for (var i = 0; i < data.length; i++) {
     var obj = data[i];
@@ -120,7 +119,7 @@ function saveCoin(newCoin) {
   }
   newData.push(newCoin);
 
-  jetpack.write('db/coins.json', newData);
+  jetpack.write(__dirname+'/db/coins.json', newData);
 
 }
 
@@ -134,6 +133,8 @@ function reloadCoins(curr) {
 
 
   var coinObj = JSON.parse(Httpreq.responseText);
+
+  console.log(coinObj)
 
   var price = roundPrice(coinObj.ticker.price)
 
@@ -198,12 +199,12 @@ function removeCoin(clicked_id) {
   }
 
   document.getElementById(clicked_id).remove()
-  jetpack.write('db/coins.json', newData);
+  jetpack.write(__dirname+'/db/coins.json', newData);
 }
 
 function pushNotification(direction, coin, change) {
 
-  const data = jetpack.read('db/alerts.json', 'json');
+  const data = jetpack.read(__dirname+'/db/alerts.json', 'json');
   var currentTime = new Date()
 
   for (var i = 0; i < data.length; i++) {
@@ -254,10 +255,10 @@ function setAlert(clicked_id) {
     lastAlert: time.getTime()
   }
 
-  const data = jetpack.read('db/alerts.json', 'json')
+  const data = jetpack.read(__dirname+__dirname+'/db/alerts.json', 'json')
   data.push(newAlert)
 
-  jetpack.write('db/alerts.json', data);
+  jetpack.write(__dirname+__dirname+'/db/alerts.json', data);
 
 }
 
@@ -265,7 +266,7 @@ function removeAlert(clicked_id) {
 
   var newData = []
 
-  const data = jetpack.read('db/alerts.json', 'json');
+  const data = jetpack.read(__dirname+__dirname+'/db/alerts.json', 'json');
 
   for (var i = 0; i < data.length; i++) {
     var obj = data[i];
@@ -275,6 +276,6 @@ function removeAlert(clicked_id) {
       newData.push(obj);
     }
   }
-  jetpack.write('db/alerts.json', newData);
+  jetpack.write(__dirname+__dirname+'/db/alerts.json', newData);
 
 }
